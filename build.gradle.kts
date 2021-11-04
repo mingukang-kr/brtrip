@@ -10,9 +10,24 @@ plugins {
 allprojects {
 	group = "com"
 	version = "0.0.1-SNAPSHOT"
+
+	tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+		kotlinOptions {
+			freeCompilerArgs = listOf("-Xjsr305=strict")
+			jvmTarget = "11"
+		}
+	}
+
+	tasks.withType<Test> {
+		useJUnitPlatform()
+	}
 }
 
 subprojects {
+	apply(plugin = "org.springframework.boot")
+	apply(plugin = "io.spring.dependency-management")
+	apply(plugin = "kotlin")
+
 	repositories {
 		mavenCentral()
 	}

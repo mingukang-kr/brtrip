@@ -1,10 +1,5 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
-    id("org.springframework.boot")
-    id("io.spring.dependency-management")
     id("org.asciidoctor.convert")
-    kotlin("jvm")
     kotlin("plugin.spring")
     kotlin("plugin.jpa")
 }
@@ -25,6 +20,7 @@ configurations {
 
 dependencies {
     implementation(project(":brtrip-common"))
+
     implementation("io.jsonwebtoken:jjwt:0.9.1")
     implementation("com.google.code.gson:gson:2.8.6")
     implementation("com.google.guava:guava:30.1.1-jre")
@@ -68,15 +64,4 @@ tasks {
     build {
         dependsOn(asciidoctor)
     }
-}
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "11"
-    }
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform()
 }
