@@ -5,7 +5,7 @@ name: CI with Gradle
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, feat/add-docker-env ]
   pull_request:
     branches: [ master ]
 
@@ -43,6 +43,14 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: source
+
+      - name: Docker image build and push
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ secrets.DOCKER_ID }}
+          password: ${{ secrets.DOCKER_PW }}
+          repository: mingukangkor/brtrip
+          tags: latest
 
       - name: aws setting
         uses: aws-actions/configure-aws-credentials@v1
